@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import VideoDisplay from './component/VideoDisplay';
+import ytVideos from "./component/Videos";
 
 function App() {
+  const [isVideo, setIsVideo] = useState([]);
+  useEffect(() => {
+    setIsVideo(ytVideos);
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className='app__video'>
+        {
+          isVideo.map((vid) => {
+            return (<VideoDisplay key={vid.id}
+              src={vid.url}
+              channel={vid.channel}
+              title={vid.title}
+              likes={vid.likes}
+              dislike={vid.dislike}
+              comment={vid.comment}
+              shares={vid.shares} />
+            )
+          })
+        }
+      </div>
     </div>
   );
 }
